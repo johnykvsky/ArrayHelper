@@ -17,6 +17,8 @@ Via Composer
 $ composer require johnykvsky/arrayhelper
 ```
 
+Should work fine on PHP 5.6, but I didn't check that. Just change required PHP version in composer.json and maybe remove dev packages.
+
 ## Usage
 
 ``` php
