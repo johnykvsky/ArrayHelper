@@ -31,7 +31,7 @@ $array = ArrayHelper::setValue($array, 'barry.age', 25); //add age to Barry
 $array2 = array('hobby'=>array(array('music'=>'rock')));
 $result = ArrayHelper::merge($array, $array2); //merge arrays
 $array3 = array('chris'=>array('weight'=>70));
-$result = ArrayHelper::merge($array, $array2, true); //merge only keys that are in both arrays, Chris in this example
+$result = ArrayHelper::merge($array, $array3, true); //merge and return only keys that are in both arrays, Chris in this example
 
 ```
 
