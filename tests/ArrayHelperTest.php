@@ -54,13 +54,6 @@ class ArrayHelperTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    public function testMergeReplace()
-    {
-        $result = johnykvsky\Utils\ArrayHelper::merge($this->inputArray, $this->updateArray, true);
-        $expected = array('hobby'=>array(array('music'=>'rock')));
-        $this->assertEquals($expected, $result);
-    }
-
     public function testIsAssocTrue()
     {
         $array = array('foo' => 'bar');
@@ -103,6 +96,15 @@ class ArrayHelperTest extends TestCase
         $array2 = array('foo' => array('tar' => 'zip'));
         $result = johnykvsky\Utils\ArrayHelper::merge($array1, $array2);
         $expected = array('foo' => array('arj' => 'pak', 'tar' => 'zip'));
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testNonDeepMerge()
+    {
+        $array1 = array('foo' => array('arj' => 'pak'));
+        $array2 = array('foo' => array('tar' => 'zip'));
+        $result = johnykvsky\Utils\ArrayHelper::merge($array1, $array2, false);
+        $expected = array('foo' => array('tar' => 'zip'));
         $this->assertEquals($expected, $result);
     }
 }

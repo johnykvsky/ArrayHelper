@@ -107,18 +107,14 @@ class ArrayHelper
      * Merge two arrays
      * @param array $array1 First array
      * @param array $array2 Second array
-     * @param boolean $replace Only keys from $array2 are kept
+     * @param boolean $deep If false, values that are arrays are not merged, but replaced by $array2 values
      */
-    public static function merge($array1, $array2, $replace = false)
+    public static function merge($array1, $array2, $deep = true)
     {
-        if ($replace) {
-            $array1 = array_intersect_key($array1, $array2);
-        }
-
         if (static::isAssoc($array2)) {
             foreach ($array2 as $key => $value) {
-                if (is_array($value) and isset($array1[$key]) and is_array($array1[$key])) {
-                    $array1[$key] = static::merge($array1[$key], $value, $replace);
+                if (is_array($value) and isset($array1[$key]) and is_array($array1[$key]) and $deep) {
+                    $array1[$key] = static::merge($array1[$key], $value, $deep);
                 } else {
                     $array1[$key] = $value;
                 }
