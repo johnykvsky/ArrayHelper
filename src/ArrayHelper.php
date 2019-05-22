@@ -50,10 +50,6 @@ class ArrayHelper
             $parents = explode($glue, (string) $parents);
         }
         
-        if (!is_array($parents)) {
-            throw new ArrayHelperException('Invalid parents supplied');
-        }
-
         $ref = &$array;
 
         foreach ($parents as $parent) {
@@ -82,10 +78,6 @@ class ArrayHelper
             $parents = explode($glue, (string) $parents);
         }
         
-        if (!is_array($parents)) {
-            throw new ArrayHelperException('Invalid parents supplied');
-        }
-
         $key = array_shift($parents);
 
         if (empty($parents)) {
