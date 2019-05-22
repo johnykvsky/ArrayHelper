@@ -4,8 +4,8 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayHelperTest extends TestCase
 {
-    private $inputArray = array('johny'=>array('age'=>30,'weight'=>70),'chris'=>array('height'=>170));
-    private $updateArray = array('hobby'=>array(array('music'=>'rock')));
+    private $inputArray = ['johny'=>['age'=>30,'weight'=>70],'chris'=>['height'=>170]];
+    private $updateArray = ['hobby'=>[['music'=>'rock']]];
 
     public function testGetValueSuccess()
     {
@@ -22,35 +22,35 @@ class ArrayHelperTest extends TestCase
     public function testSetExistingValue()
     {
         $result = johnykvsky\Utils\ArrayHelper::setValue($this->inputArray, 'johny.age', 35);
-        $expected = array('johny'=>array('age'=>35,'weight'=>'70'),'chris'=>array('height'=>170));
+        $expected = ['johny'=>['age'=>35,'weight'=>'70'],'chris'=>['height'=>170]];
         $this->assertEquals($expected, $result);
     }
 
     public function testSetNewValue()
     {
         $result = johnykvsky\Utils\ArrayHelper::setValue($this->inputArray, 'barry.age', 25);
-        $expected = array('johny'=>array('age'=>30,'weight'=>70),'chris'=>array('height'=>170), 'barry'=>array('age'=>25));
+        $expected = ['johny'=>['age'=>30,'weight'=>70],'chris'=>['height'=>170], 'barry'=>['age'=>25]];
         $this->assertEquals($expected, $result);
     }
 
     public function testUnsetValueSuccess()
     {
         johnykvsky\Utils\ArrayHelper::unsetValue($this->inputArray, 'johny.age');
-        $expected = array('johny'=>array('weight'=>70),'chris'=>array('height'=>170));
+        $expected = ['johny'=>['weight'=>70],'chris'=>['height'=>170]];
         $this->assertEquals($expected, $this->inputArray);
     }
 
     public function testUnsetValueFail()
     {
         johnykvsky\Utils\ArrayHelper::unsetValue($this->inputArray, 'johny.height');
-        $expected = array('johny'=>array('age'=>30,'weight'=>70),'chris'=>array('height'=>170));
+        $expected = ['johny'=>['age'=>30,'weight'=>70],'chris'=>['height'=>170]];
         $this->assertEquals($expected, $this->inputArray);
     }
 
     public function testMerge()
     {
         $result = johnykvsky\Utils\ArrayHelper::merge($this->inputArray, $this->updateArray);
-        $expected = array('johny'=>array('age'=>30,'weight'=>'70'),'chris'=>array('height'=>170),'hobby'=>array(array('music'=>'rock')));
+        $expected = ['johny'=>['age'=>30,'weight'=>'70'],'chris'=>['height'=>170],'hobby'=>[['music'=>'rock']]];
         $this->assertEquals($expected, $result);
     }
 
@@ -78,33 +78,33 @@ class ArrayHelperTest extends TestCase
 
     public function testBadSetValue()
     {
-        $this->assertEquals(array('foo' => 'bar'), johnykvsky\Utils\ArrayHelper::setValue(123, 'foo', 'bar'));
+        $this->assertEquals(['foo' => 'bar','test'=> 'fine'], johnykvsky\Utils\ArrayHelper::setValue(['test'=> 'fine'], 'foo', 'bar'));
     }
 
     public function testMergeNotAssociative()
     {
-        $array1 = array('foo' => 'bar');
-        $array2 = array(3,5,7);
+        $array1 = ['foo' => 'bar'];
+        $array2 = [3,5,7];
         $result = johnykvsky\Utils\ArrayHelper::merge($array1, $array2);
-        $expected = array('foo' => 'bar', 3, 5, 7);
+        $expected = ['foo' => 'bar', 3, 5, 7];
         $this->assertEquals($expected, $result);
     }
 
     public function testDeepMerge()
     {
-        $array1 = array('foo' => array('arj' => 'pak'));
-        $array2 = array('foo' => array('tar' => 'zip'));
+        $array1 = ['foo' => ['arj' => 'pak']];
+        $array2 = ['foo' => ['tar' => 'zip']];
         $result = johnykvsky\Utils\ArrayHelper::merge($array1, $array2);
-        $expected = array('foo' => array('arj' => 'pak', 'tar' => 'zip'));
+        $expected = ['foo' => ['arj' => 'pak', 'tar' => 'zip']];
         $this->assertEquals($expected, $result);
     }
 
     public function testNonDeepMerge()
     {
-        $array1 = array('foo' => array('arj' => 'pak'));
-        $array2 = array('foo' => array('tar' => 'zip'));
+        $array1 = ['foo' => ['arj' => 'pak']];
+        $array2 = ['foo' => ['tar' => 'zip']];
         $result = johnykvsky\Utils\ArrayHelper::merge($array1, $array2, false);
-        $expected = array('foo' => array('tar' => 'zip'));
+        $expected = ['foo' => ['tar' => 'zip']];
         $this->assertEquals($expected, $result);
     }
 }

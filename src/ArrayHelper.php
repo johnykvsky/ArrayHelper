@@ -2,27 +2,26 @@
 
 namespace johnykvsky\Utils;
 
+use johnykvsky\Utils\Exception\ArrayHelperException;
+
 class ArrayHelper
 {
     /**
      * Parents can be string: 'user.lastName' or array: array('user','lastName')
-     * @param array $array ie. array('user'=>array('lastName'=>'Smith','firstName'=>'John'))
+     * @param mixed $array ie. array('user'=>array('lastName'=>'Smith','firstName'=>'John'))
      * @param array|string $parents path to the key, ie. 'user.lastName';
+     * @param mixed $default Default value to return
      * @param string $glue Parents glue, by default it's dot (.)
      * @return mixed
      */
-    public static function getValue($array, $parents, $default = null, $glue = '.')
+    public static function getValue($array, $parents, $default = null, string $glue = '.')
     {
-        if (empty($array)) {
-            return $default;
-        }
-
-        if (!is_array($array)) {
+        if (empty($array) || !is_array($array)) {
             return $default;
         }
 
         if (!is_array($parents)) {
-            $parents = explode($glue, $parents);
+            $parents = explode($glue, (string) $parents);
         }
 
         $ref = &$array;
@@ -39,16 +38,20 @@ class ArrayHelper
 
     /**
      * Parents can be string: 'user.lastName' or array array('user','lastName')
-     * @param array $array ie. array('user'=>array('lastName'=>'Smith','firstName'=>'John'))
+     * @param mixed[] $array ie. array('user'=>array('lastName'=>'Smith','firstName'=>'John'))
      * @param array|string $parents path to the key, ie. 'user.lastName';
      * @param mixed $value Value to be set
      * @param string $glue Parents glue, by default it's dot (.)
-     * @return array
+     * @return mixed[]
      */
-    public static function setValue($array, $parents, $value, $glue = '.')
+    public static function setValue(array $array, $parents, $value, string $glue = '.'): array
     {
         if (!is_array($parents)) {
             $parents = explode($glue, (string) $parents);
+        }
+        
+        if (!is_array($parents)) {
+            throw new ArrayHelperException('Invalid parents supplied');
         }
 
         $ref = &$array;
@@ -68,15 +71,19 @@ class ArrayHelper
 
     /**
      * Parents can be string: 'user.lastName' or array array('user','lastName')
-     * @param array $array ie. array('user'=>array('lastName'=>'Smith','firstName'=>'John'))
+     * @param mixed[] $array ie. array('user'=>array('lastName'=>'Smith','firstName'=>'John'))
      * @param array|string $parents path to the key, ie. 'user.lastName';
      * @param string $glue Parents glue, by default it's dot (.)
      * @return void
      */
-    public static function unsetValue(&$array, $parents, $glue = '.')
+    public static function unsetValue(array &$array, $parents, string $glue = '.'):void 
     {
         if (!is_array($parents)) {
-            $parents = explode($glue, $parents);
+            $parents = explode($glue, (string) $parents);
+        }
+        
+        if (!is_array($parents)) {
+            throw new ArrayHelperException('Invalid parents supplied');
         }
 
         $key = array_shift($parents);
@@ -90,10 +97,10 @@ class ArrayHelper
 
     /**
      * Check if $array is associative
-     * @param array $array Array to be checked
+     * @param mixed[] $array Array to be checked
      * @return boolean
      */
-    public static function isAssoc(array $array)
+    public static function isAssoc(array $array): bool
     {
         // Keys of the array
         $keys = array_keys($array);
@@ -105,11 +112,12 @@ class ArrayHelper
 
     /**
      * Merge two arrays
-     * @param array $array1 First array
-     * @param array $array2 Second array
+     * @param mixed[] $array1 First array
+     * @param mixed[] $array2 Second array
      * @param boolean $deep If false, values that are arrays are not merged, but replaced by $array2 values
+     * @return mixed[]
      */
-    public static function merge($array1, $array2, $deep = true)
+    public static function merge(array $array1, array $array2, bool $deep = true): array
     {
         if (static::isAssoc($array2)) {
             foreach ($array2 as $key => $value) {
