@@ -7,46 +7,6 @@ class ArrayHelperTest extends TestCase
     private $inputArray = ['johny'=>['age'=>30,'weight'=>70],'chris'=>['height'=>170]];
     private $updateArray = ['hobby'=>[['music'=>'rock']]];
 
-    public function testGetValueSuccess()
-    {
-        $result = johnykvsky\Utils\ArrayHelper::getValue($this->inputArray, 'johny.age');
-        $this->assertEquals(30, $result);
-    }
-
-    public function testGetValueFail()
-    {
-        $result = johnykvsky\Utils\ArrayHelper::getValue($this->inputArray, 'johny.height');
-        $this->assertEquals(null, $result);
-    }
-
-    public function testSetExistingValue()
-    {
-        $result = johnykvsky\Utils\ArrayHelper::setValue($this->inputArray, 'johny.age', 35);
-        $expected = ['johny'=>['age'=>35,'weight'=>'70'],'chris'=>['height'=>170]];
-        $this->assertEquals($expected, $result);
-    }
-
-    public function testSetNewValue()
-    {
-        $result = johnykvsky\Utils\ArrayHelper::setValue($this->inputArray, 'barry.age', 25);
-        $expected = ['johny'=>['age'=>30,'weight'=>70],'chris'=>['height'=>170], 'barry'=>['age'=>25]];
-        $this->assertEquals($expected, $result);
-    }
-
-    public function testUnsetValueSuccess()
-    {
-        johnykvsky\Utils\ArrayHelper::unsetValue($this->inputArray, 'johny.age');
-        $expected = ['johny'=>['weight'=>70],'chris'=>['height'=>170]];
-        $this->assertEquals($expected, $this->inputArray);
-    }
-
-    public function testUnsetValueFail()
-    {
-        johnykvsky\Utils\ArrayHelper::unsetValue($this->inputArray, 'johny.height');
-        $expected = ['johny'=>['age'=>30,'weight'=>70],'chris'=>['height'=>170]];
-        $this->assertEquals($expected, $this->inputArray);
-    }
-
     public function testMerge()
     {
         $result = johnykvsky\Utils\ArrayHelper::merge($this->inputArray, $this->updateArray);
@@ -64,21 +24,6 @@ class ArrayHelperTest extends TestCase
     {
         $array = array('foo', 'bar');
         $this->assertEquals(johnykvsky\Utils\ArrayHelper::isAssoc($array), false);
-    }
-
-    public function testEmptyInput()
-    {
-        $this->assertEquals(null, johnykvsky\Utils\ArrayHelper::getValue(null, 'test'));
-    }
-
-    public function testBadInput()
-    {
-        $this->assertEquals(null, johnykvsky\Utils\ArrayHelper::getValue(123, 'test'));
-    }
-
-    public function testBadSetValue()
-    {
-        $this->assertEquals(['foo' => 'bar','test'=> 'fine'], johnykvsky\Utils\ArrayHelper::setValue(['test'=> 'fine'], 'foo', 'bar'));
     }
 
     public function testMergeNotAssociative()
