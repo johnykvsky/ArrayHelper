@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-ArrayHelper - based on KohanaPHP Arr class.
+ArrayHelper - based on KohanaPHP Arr class. Proper merge, without surprises - see usage for example.
 
 ## Install
 
@@ -17,17 +17,13 @@ Via Composer
 $ composer require johnykvsky/arrayhelper
 ```
 
-Should work fine on PHP 5.6, but I didn't check that. Just change required PHP version in composer.json and maybe remove dev packages.
+Should work fine on PHP 5.6, but I didn't check that. Just change required PHP version in composer.json and maybe remove dev packages. And type hinting from code.
 
 ## Usage
 
 ``` php
 use johnykvsky\Utils\ArrayHelper;
 $array = array('johny'=>array('age'=>30,'weight'=>70),'chris'=>array('height'=>170));
-$result = ArrayHelper::getValue($array, 'johny.age'); //returns 30
-$result = ArrayHelper::getValue($array, 'johny.height', 'Not set'); //missing, so returns default value "Not set"
-$array = ArrayHelper::setValue($array, 'johny.age', 35); //updates age to 35
-$array = ArrayHelper::setValue($array, 'barry.age', 25); //add age to Barry
 $array2 = array('hobby'=>array(array('music'=>'rock')));
 $result = ArrayHelper::merge($array, $array2); //merge arrays
 $array3 = array('chris'=>array('weight'=>70));
