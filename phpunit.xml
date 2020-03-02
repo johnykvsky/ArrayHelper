@@ -16,6 +16,7 @@
 >
     <php>
         <ini name="error_reporting" value="1" />
+        <ini name="displa_errors" value="true" />
     </php>
 
     <testsuites>
