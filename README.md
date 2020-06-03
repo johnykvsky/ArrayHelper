@@ -25,15 +25,28 @@ Should work fine on PHP 5.6, but I didn't check that. Just change required PHP v
 use johnykvsky\Utils\ArrayHelper;
 $array = array('johny'=>array('age'=>30,'weight'=>70),'chris'=>array('height'=>170));
 $array2 = array('hobby'=>array(array('music'=>'rock')));
+
 $result = ArrayHelper::merge($array, $array2); //merge arrays
+
 $array3 = array('chris'=>array('weight'=>70));
 $array1 = array('fragment' => 'x', 'attributes' => array('title' => 'X', 'class' => array('a', 'b')));
 $array2 = array('fragment' => 'y', 'attributes' => array('title' => 'Y', 'class' => array('c', 'd')));
+
 $result = ArrayHelper::merge($array1, $array2); //deep merge, fragment = y / attributes: title = Y / class = a,b,c,d
 $result = ArrayHelper::merge($array1, $array2, false); //non-deep, fragment = y / attributes title = Y / class = c,d
+
 //potential problem with array_merge_recursive:
 $incorrect = array_merge_recursive($array1, $array2);
 //result is array('fragment' => array('x', 'y'), 'attributes' => array('title' => array('X', 'Y'), 'class' => array('a', 'b', 'c', 'd'))).
+
+$array4 = ['foo' , 'arj','pak'];
+$array5 = ['foo' => 'tar', 'baz'=>'zip'];
+//combine - get all values from array5 into array4
+$result = ArrayHelper::combine($array4, $array5);
+//result is ['foo','arj','pak','tar','zip']
+
+$foo = ArrayHelper::firstValue($array5); // tar
+$baz = ArrayHelper::testLastValue($array5); // zip
 
 ```
 
