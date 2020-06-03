@@ -46,7 +46,7 @@ $result = ArrayHelper::combine($array4, $array5);
 //result is ['foo','arj','pak','tar','zip']
 
 $foo = ArrayHelper::firstValue($array5); // tar
-$baz = ArrayHelper::testLastValue($array5); // zip
+$baz = ArrayHelper::lastValue($array5); // zip
 
 ```
 
