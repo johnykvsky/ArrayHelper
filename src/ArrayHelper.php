@@ -114,7 +114,7 @@ class ArrayHelper
     }
 
     /**
-     * Get values from input array (recursive)
+     * Get flattened uniqe values from multidimension input array
      * @param array $input Input array
      * @return array
      */
