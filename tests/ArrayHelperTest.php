@@ -89,4 +89,24 @@ class ArrayHelperTest extends TestCase
         $expected = ['foo', 'arj', 'pak', 'bar', 'tar', 'zip'];
         $this->assertEquals($expected, $result);
     }
+
+    public function testFlatten()
+    {
+        $array1 = [
+            'foo',
+            'status' => 'active',
+            5 => 123,
+            'bar' => [
+                'archive' => 'arj',
+                45,
+                'compression' => [
+                    78,
+                    '6' => 99
+                ]
+            ]
+        ];
+        $result = ArrayHelper::flatten($array1);
+        $expected = ['foo', 'active', 123, 'arj', 45, 78, 99];
+        $this->assertEquals($expected, $result);
+    }
 }

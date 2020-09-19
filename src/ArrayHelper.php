@@ -112,4 +112,15 @@ class ArrayHelper
     {
         return current(array_slice($array, -1));
     }
+
+    /**
+     * Get values from input array (recursive)
+     * @param array $input Input array
+     * @return array
+     */
+    public static function flatten(array $input): array
+    {
+        $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($input));
+        return iterator_to_array($iterator, false);
+    }
 }
