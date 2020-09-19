@@ -48,6 +48,8 @@ $result = ArrayHelper::combine($array4, $array5);
 $foo = ArrayHelper::firstValue($array5); // tar
 $baz = ArrayHelper::lastValue($array5); // zip
 
+$bar = ArrayHelper::flatten($array1); // ['x','X','a','b']
+
 ```
 
 ## Testing
