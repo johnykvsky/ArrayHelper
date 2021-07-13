@@ -2,10 +2,8 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
+[![Build Status][ico-github-actions]][link-github-actions]
 
 ArrayHelper - based on KohanaPHP Arr class. Proper merge, without surprises - see usage for example.
 
@@ -79,14 +77,10 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/johnykvsky/ArrayHelper.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/johnykvsky/ArrayHelper/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/johnykvsky/ArrayHelper.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/johnykvsky/ArrayHelper.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/johnykvsky/ArrayHelper.svg?style=flat-square
+[ico-github-actions]: https://github.com/johnykvsky/ArrayHelper/actions/workflows/php.yml/badge.svg
 
 [link-packagist]: https://packagist.org/packages/johnykvsky/ArrayHelper
-[link-travis]: https://travis-ci.org/johnykvsky/ArrayHelper
-[link-scrutinizer]: https://scrutinizer-ci.com/g/johnykvsky/ArrayHelper/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/johnykvsky/ArrayHelper
 [link-downloads]: https://packagist.org/packages/johnykvsky/ArrayHelper
 [link-author]: https://github.com/johnykvsky
+[link-github-actions]: https://github.com/johnykvsky/ArrayHelper/actions
