@@ -6,67 +6,36 @@ namespace johnykvsky\Utils;
 
 class ArrayHelper
 {
-    /**
-     * Merge two arrays
-     * @param mixed[] $array1 First array
-     * @param mixed[] $array2 Second array
-     * @param boolean $deep If false, values that are arrays are not merged, but replaced by $array2 values
-     * @return mixed[]
-     */
     public static function merge(array $array1, array $array2, bool $deep = true): array
     {
-        return (static::isAssoc($array2)) ? static::mergeAssociative(
-            $array1,
-            $array2,
-            $deep
-        ) : static::mergeAssociative($array1, $array2);
+        if (static::isAssoc($array2)) {
+            return static::mergeAssociative($array1, $array2, $deep);
+        }
+
+        return static::mergeAssociative($array1, $array2);
     }
 
-    /**
-     * Check if $array is associative
-     * @param mixed[] $array Array to be checked
-     * @return boolean
-     */
     public static function isAssoc(array $array): bool
     {
-        // Keys of the array
         $keys = array_keys($array);
 
-        // If the array keys of the keys match the keys, then the array must
-        // not be associative (e.g. the keys array looked like {0:0, 1:1...}).
         return array_keys($keys) !== $keys;
     }
 
-    /**
-     * Merge two arrays
-     * @param mixed[] $array1 First array
-     * @param mixed[] $array2 Second array
-     * @param boolean $deep If false, values that are arrays are not merged, but replaced by $array2 values
-     * @return mixed[]
-     */
     public static function mergeAssociative(array $array1, array $array2, bool $deep = true): array
     {
         foreach ($array2 as $key => $value) {
-            if (is_array($value) && isset($array1[$key]) && is_array($array1[$key]) && $deep) {
+            if ($deep && is_array($value) && isset($array1[$key]) && is_array($array1[$key])) {
                 $array1[$key] = static::merge($array1[$key], $value, $deep);
-            } else {
-                if (is_int($key)) {
-                    $array1[] = $value;
-                } else {
-                    $array1[$key] = $value;
-                }
+                continue;
             }
+
+            is_int($key) ? $array1[] = $value : $array1[$key] = $value;
         }
 
         return $array1;
     }
 
-    /**
-     * Merge two arrays
-     * @param mixed[] $array1 First array
-     * @param mixed[] $array2 Second array
-     * @return mixed[]
-     */
     public static function mergeNonAssociative(array $array1, array $array2): array
     {
         foreach ($array2 as $value) {
@@ -78,12 +47,6 @@ class ArrayHelper
         return $array1;
     }
 
-    /**
-     * Join two arrays
-     * @param mixed[] $array1 First array
-     * @param mixed[] $array2 Second array
-     * @return mixed[]
-     */
     public static function combine(array $array1, array $array2): array
     {
         foreach ($array2 as $value) {
@@ -93,31 +56,16 @@ class ArrayHelper
         return $array1;
     }
 
-    /**
-     * Get first element from array (value), without modifying an array (like array_pop)
-     * @param array $array Input array
-     * @return mixed|null
-     */
-    public static function firstValue(array $array)
+    public static function firstValue(array $array): mixed
     {
         return current(array_slice($array, 0));
     }
 
-    /**
-     * Get last element from array (value), without modifying an array
-     * @param array $array Input array
-     * @return mixed|null
-     */
-    public static function lastValue(array $array)
+    public static function lastValue(array $array): mixed
     {
         return current(array_slice($array, -1));
     }
 
-    /**
-     * Get flattened uniqe values from multidimension input array
-     * @param array $input Input array
-     * @return array
-     */
     public static function flatten(array $input): array
     {
         $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($input));
